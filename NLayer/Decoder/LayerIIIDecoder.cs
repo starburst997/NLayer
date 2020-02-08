@@ -863,7 +863,7 @@ namespace NLayer.Decoder
         int[] _sfBandIndexL, _sfBandIndexS;
 
         // these are byte[] to save memory
-        byte[] _cbLookupL = new byte[SSLIMIT * SBLIMIT], _cbLookupS = new byte[SSLIMIT * SBLIMIT], _cbwLookupS = new byte[SSLIMIT * SBLIMIT];
+        byte[] _cbLookupL = new byte[SSLIMIT * SBLIMIT + 3], _cbLookupS = new byte[SSLIMIT * SBLIMIT + 3], _cbwLookupS = new byte[SSLIMIT * SBLIMIT + 3];
         int _cbLookupSR;
 
         static readonly int[][] _sfBandIndexLTable = {
@@ -985,6 +985,12 @@ namespace NLayer.Decoder
                     _cbLookupS[i] = (byte)cbS;
                 }
 
+                for (int i = 576; i < _cbLookupL.Length; i++)
+                {
+                    _cbLookupL[i] = _cbLookupL[575];
+                    _cbLookupS[i] = _cbLookupS[575];
+                }
+
                 // set up the short block windows
                 int idx = 0;
                 for (cbS = 0; cbS < 12; cbS++)
@@ -997,6 +1003,12 @@ namespace NLayer.Decoder
                             _cbwLookupS[idx] = (byte)i;
                         }
                     }
+                }
+
+                var iidx = idx - 1;
+                while (idx < _cbwLookupS.Length)
+                {
+                    _cbwLookupS[idx++] = _cbwLookupS[iidx];
                 }
 
                 _cbLookupSR = frame.SampleRate;
