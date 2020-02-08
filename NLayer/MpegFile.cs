@@ -73,6 +73,11 @@ namespace NLayer
         public long Length { get { return _reader.SampleCount * _reader.Channels * sizeof(float); } }
 
         /// <summary>
+        /// Number of sample in the first frame
+        /// </summary>
+        public long FirstFrameSampleCount { get { return _reader.FirstFrameSampleCount; } }
+
+        /// <summary>
         /// Media duration of the Mpeg file.
         /// </summary>
         public TimeSpan Duration
