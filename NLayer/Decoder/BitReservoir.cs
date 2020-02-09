@@ -27,6 +27,7 @@ namespace NLayer.Decoder
             var originalEnd = _end;
 
             var slots = GetSlots(frame);
+            frame.Reset();
             while (--slots >= 0)
             {
                 var temp = frame.ReadBits(8);

@@ -190,12 +190,12 @@ namespace NLayer
                             break;
                         }
 
-                        try
+                        //try
                         {
                             _readBufLen = _decoder.DecodeFrame(frame, _readBuf, 0) * sizeof(float);
                             _readBufOfs = 0;
                         }
-                        catch (System.IO.InvalidDataException)
+                        /*catch (System.IO.InvalidDataException)
                         {
                             // bad frame...  try again...
                             _decoder.Reset();
@@ -208,7 +208,11 @@ namespace NLayer
                             _eofFound = true;
                             break;
                         }
-                        finally
+                        catch (System.Exception e)
+                        {
+                            frame.ClearBuffer();
+                        }
+                        finally*/
                         {
                             frame.ClearBuffer();
                         }

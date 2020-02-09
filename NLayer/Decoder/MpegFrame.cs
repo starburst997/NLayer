@@ -103,15 +103,16 @@ namespace NLayer.Decoder
 
             // calculate the frame's length
             int frameSize;
+            int coefficient = SampleCount/8;
             if (BitRateIndex > 0)
             {
                 if (Layer == MpegLayer.LayerI)
                 {
-                    frameSize = (12 * BitRate / SampleRate + Padding) * 4;
+                    frameSize = (coefficient * BitRate / SampleRate + Padding) * 4;
                 }
                 else
                 {
-                    frameSize = 144 * BitRate / SampleRate + Padding;
+                    frameSize = coefficient * BitRate / SampleRate + Padding;
                 }
             }
             else
